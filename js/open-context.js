@@ -146,7 +146,7 @@ function OpenContextSimpleAPI() {
 				
 					// now loop through the records from the data obtained via the API
 					var all_rows = [];
-					var act_rows = [];
+					var act_row = [];
 					for (var i = 0, length = this.data['oc-api:has-results'].length; i < length; i++) { 
 						// a record object has data about an individual Open Context record
 						// returned from the search.
