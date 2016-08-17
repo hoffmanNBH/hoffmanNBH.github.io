@@ -173,6 +173,7 @@ function OpenContextSimpleAPI() {
 						}
 						result_html += '</div>';
 					}
+					result_html += this.make_previous_link_html();
 					result_html += this.make_next_link_html();
 				}
 				else{
@@ -234,6 +235,19 @@ function OpenContextSimpleAPI() {
 				html = '<button type="button" class="btn btn-default" ';
 				html += 'onclick="oc_obj.get_paging(\'next\');">';
 				html += 'next page';
+				html += '</button>';
+			}
+		}
+		return html;
+	}
+		this.make_previous_link_html = function(){
+		var html = '';
+		if (this.data != null) {
+			if ("previous" in this.data) {
+				this.next_link = this.data["previous"];
+				html = '<button type="button" class="btn btn-default" ';
+				html += 'onclick="oc_obj.get_paging(\'previous\');">';
+				html += 'previous page';
 				html += '</button>';
 			}
 		}
