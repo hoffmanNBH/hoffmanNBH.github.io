@@ -21,6 +21,8 @@ function OpenContextSimpleAPI() {
 	this.examples_per_row = 4;
 	this.record_start = 0;  // the start number for the results
 	this.record_rows = 20;  // the number of rows returned in a search result
+	this.previous_link = null;
+	this.next_link = null;
 	this.search = function(query){
 		if (query) {									
 			// now run the AJAX request to Open Context's API
@@ -171,6 +173,7 @@ function OpenContextSimpleAPI() {
 						}
 						result_html += '</div>';
 					}
+					result_html += this.make_next_link_html();
 				}
 				else{
 					result_html += '<p>No result records found.</p>';
@@ -221,5 +224,40 @@ function OpenContextSimpleAPI() {
 		}
 		record_html += '</div>';
 		return record_html;
+	} 
+
+	this.make_next_link_html = function(){
+		var html = '';
+		if (this.data != null) {
+			if ("next" in this.data) {
+				this.next_link = this.data["next"];
+				html = '<button type="button" class="btn btn-default" ';
+				html += 'onclick="oc_obj.get_paging(\'next\');">';
+				html += 'next page';
+				html += '</button>';
+			}
+		}
+		return html;
+	}
+	this.get_paging_data = function(l_type) {
+		// this function runs ajax request for pagination
+		if (l_type == "next"){
+			var url = this.next_link;
+		}
+		if (l_type == "previous"){
+			var url = this.previous_link;
+		}
+		return $.ajax({
+			type: "GET",
+			url: url,
+			dataType: "json",
+			headers: {
+				//added to get JSON data (content negotiation)
+				Accept : "application/json; charset=utf-8"
+			},
+			context: this,
+			success: this.get_dataDone, //do this when we get data w/o problems
+			error: this.get_dataError //error message display
+		});
 	}
 }
