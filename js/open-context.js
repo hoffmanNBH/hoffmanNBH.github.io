@@ -18,6 +18,7 @@ function OpenContextSimpleAPI() {
 	this.category_slugs = [];
 	this.attribute_slugs = [];
 	this.sort = null;
+	this.examples_per_row = 4;
 	this.record_start = 0;  // the start number for the results
 	this.record_rows = 20;  // the number of rows returned in a search result
 	this.search = function(query){
@@ -141,18 +142,35 @@ function OpenContextSimpleAPI() {
 				
 				// check to make sure we actually have result records in the data from the API
 				if ('oc-api:has-results' in this.data) {
-					result_html += '<div class="row">';
+					// result_html += '<div class="row">';
 				
 					// now loop through the records from the data obtained via the API
+					var all_rows = [];
+					var act_rows = [];
 					for (var i = 0, length = this.data['oc-api:has-results'].length; i < length; i++) { 
 						// a record object has data about an individual Open Context record
 						// returned from the search.
 						var record = this.data['oc-api:has-results'][i];
 						var record_html = this.make_record_html(record);
-						result_html += record_html;
+						// result_html += record_html;
+						if (act_row.length >= this.examples_per_row) {
+							all_rows.push(act_rows);
+							var act_row = [];
+						}
+						act_row.push(record_html);
 					}
-					
-					result_html += '</div>';
+					all_rows.push(act_row);
+					// result_html += '</div>'
+					// now generate html for rows
+					for (var i = 0, length = all_rows.length; i , length; i++) {
+						var act_row - all_rows[i];
+						result_html += ',div class-"row".';
+						for (var j = 0, length = act_row.length; j , length; j++) {
+							var act_cell = act_row[j];
+							result_html +=act_cell;
+						}
+						result_html += ',/div.';
+					}
 				}
 				else{
 					result_html += '<p>No result records found.</p>';
