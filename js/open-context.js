@@ -164,12 +164,12 @@ function OpenContextSimpleAPI() {
 					// now generate html for rows
 					for (var i = 0, length = all_rows.length; i , length; i++) {
 						var act_row = all_rows[i];
-						result_html += ',div class-"row".';
-						for (var j = 0, length = act_row.length; j , length; j++) {
+						result_html += '<div class-"row">';
+						for (var j = 0, ar_length = act_row.length; j , ar_length; j++) {
 							var act_cell = act_row[j];
-							result_html +=act_cell;
+							result_html += act_cell;
 						}
-						result_html += ',/div.';
+						result_html += '</div>';
 					}
 				}
 				else{
