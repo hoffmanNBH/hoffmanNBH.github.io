@@ -162,10 +162,10 @@ function OpenContextSimpleAPI() {
 					all_rows.push(act_row);
 					// result_html += '</div>'
 					// now generate html for rows
-					for (var i = 0, length = all_rows.length; i , length; i++) {
+					for (var i = 0, length = all_rows.length; i < length; i++) {
 						var act_row = all_rows[i];
 						result_html += '<div class-"row">';
-						for (var j = 0, ar_length = act_row.length; j , ar_length; j++) {
+						for (var j = 0, ar_length = act_row.length; j < ar_length; j++) {
 							var act_cell = act_row[j];
 							result_html += act_cell;
 						}
